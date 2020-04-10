@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="co.com.udea.smartbusiness.service.TestPromocionService" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-07T03:12:26" hostname="DESKTOP-NMFGNC6" time="0.004">
-  <properties/>
-  <testcase name="testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs100YCantidadMinimaEs500" classname="co.com.udea.smartbusiness.service.TestPromocionService" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

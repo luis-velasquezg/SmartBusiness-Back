@@ -3,7 +3,37 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/Clases 2019-1/Proyecto Integrador/Proyecto/docenteapi/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="D:/Clases 2019-1/Proyecto Integrador/Proyecto/docenteapi/src/main/java/co/udea/docente/api/model/Grupo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/App.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/controller/PromocionController.java">
           <value>
             <set />
           </value>
