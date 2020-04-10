@@ -11,47 +11,46 @@ import java.util.List;
 
 public class PromocionServiceImpl implements PromocionService{
     private ProductoDao productoDao;
-    private Producto producto;
+    private List<Producto> productos;
+    private List <Promocion> promociones;
     private Promocion promocion;
 
     public PromocionServiceImpl() {
     }
 
-    public PromocionServiceImpl(ProductoDao productoDao, Producto producto, Promocion promocion) {
-        this.productoDao = productoDao;
-        this.producto = producto;
-        this.promocion = promocion;
-    }
-
     @Override
-    public String calcularPromocionMetodoPorDefecto(Date fecha, Configuracion configuracion) {
-        List<Producto> productos;
-        producto = new Producto();
-        promocion = new Promocion();
-        int cantidadMinima = 300;
+    public List <Promocion> calcularPromocionMetodoPorDefecto(Date fecha, Configuracion configuracion) {
+
+        promociones = new ArrayList<>();
         //Consultamos los productos que tengan mayor inventario
-        productos = consultarProductoMayorInventario(cantidadMinima);
+        productos = consultarProductoMayorInventario(configuracion.getCantidadMinimaProductoPromocion());
         //Consultamos el producto con menores ventas de la lista
-        producto = consultarProductoMenorVentaMes(productos, fecha);
-        promocion.setProducto(producto);
-        promocion.setCodigo(1);
-        promocion.setFecha(fecha);
-        if(producto.getInventario() > configuracion.getCantidadMinimaProductoPromocion()){
-            if(producto.getCosto() > configuracion.getCostoMayor()){
-                promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento1());
+        productos = consultarProductoMenorVentaMes(productos, fecha);
+        int cantProductos = productos.size();
+        for(int i = 0; i < cantProductos; i++){
+            promocion = new Promocion();
+            promocion.setProducto(productos.get(i));
+            promocion.setCodigo(i + 1);
+            promocion.setFecha(fecha);
+            if(productos.get(i).getInventario() > configuracion.getCantidadMinimaProductoPromocion()){
+                if(productos.get(i).getCosto() > configuracion.getCostoMayor()){
+                    promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento1());
+                }else{
+                    promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento2());
+                }
             }else{
-                promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento2());
+                if(productos.get(i).getCosto() > configuracion.getCostoMayor()){
+                    promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento3());
+                }else{
+                    promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento4());
+                }
             }
-        }else{
-            if(producto.getCosto() > configuracion.getCostoMayor()){
-                promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento3());
-            }else{
-                promocion.setPorcentajePromocion(configuracion.getPorcentajeDescuento4());
-            }
+            String mensaje = "Usted puede aplicar " + promocion.getPorcentajePromocion() * 100 +
+                    "% de descuento " + "al producto " + promocion.getProducto().getNombre();
+            promocion.setMensaje(mensaje);
+            promociones.add(promocion);
         }
-        String mensaje= "Usted puede aplicar " + promocion.getPorcentajePromocion() *100 + "% de descuento "
-                + "al producto " + promocion.getProducto().getNombre();
-        return mensaje;
+        return promociones;
     }
 
     private List<Producto> consultarProductoMayorInventario(int cantidadMinima){
@@ -59,7 +58,7 @@ public class PromocionServiceImpl implements PromocionService{
         return productoDao.consultarProductosMayorInventario(cantidadMinima);
     }
 
-    private Producto consultarProductoMenorVentaMes(List<Producto> productos, Date fecha){
+    private List<Producto>  consultarProductoMenorVentaMes(List<Producto> productos, Date fecha){
         productoDao = new ProductoDao();
         return productoDao.consultarProductoMenorVentaMes(productos, fecha);
     }
