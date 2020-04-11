@@ -1,17 +1,21 @@
 package co.com.udea.smartbusiness.service;
+
 import co.com.udea.smartbusiness.persistence.entity.Configuracion;
 import co.com.udea.smartbusiness.persistence.entity.Promocion;
 import org.junit.After;
-import org.junit.Test;
-import org.junit.Assert;
 import org.junit.Before;
-import org.mockito.Mock;
-import static org.mockito.Mockito.*;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class TestPromocionService {
     Date fecha = new Date();
     Configuracion configuracion;
@@ -45,7 +49,7 @@ public class TestPromocionService {
         promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento1()*100 +"%"));
+        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento1()*100 +"%"));
     }
 
     @Test
@@ -57,7 +61,7 @@ public class TestPromocionService {
         promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento3()*100 +"%"));
+        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento3()*100 +"%"));
     }
 
     @Test
@@ -69,7 +73,7 @@ public class TestPromocionService {
         promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento2()*100 +"%"));
+        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento2()*100 +"%"));
     }
 
     @Test
@@ -81,6 +85,6 @@ public class TestPromocionService {
         promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento4()*100 +"%"));
+        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento4()*100 +"%"));
     }
 }
