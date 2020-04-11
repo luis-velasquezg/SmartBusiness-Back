@@ -5,7 +5,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.Before;
-
+import org.mockito.Mock;
+import static org.mockito.Mockito.*;
 
 
 import java.util.Date;
@@ -17,14 +18,15 @@ public class TestPromocionService {
     String resultado = "";
     PromocionService promocion;
     List <Promocion> promociones;
+    Configuracion configuracionMock = mock(Configuracion.class);
+
 
     @Before
     public void setUp(){
-        configuracion = new Configuracion();
-        configuracion.setPorcentajeDescuento1(0.40);
-        configuracion.setPorcentajeDescuento2(0.30);
-        configuracion.setPorcentajeDescuento3(0.20);
-        configuracion.setPorcentajeDescuento4(0.10);
+        when(configuracionMock.getPorcentajeDescuento1()).thenReturn(0.40);
+        when(configuracionMock.getPorcentajeDescuento2()).thenReturn(0.30);
+        when(configuracionMock.getPorcentajeDescuento3()).thenReturn(0.20);
+        when(configuracionMock.getPorcentajeDescuento4()).thenReturn(0.10);
         promocion = new PromocionServiceImpl();
     }
 
@@ -37,49 +39,48 @@ public class TestPromocionService {
     @Test
     public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs100YCantidadMinimaEs300(){
         //Arrange
-        configuracion.setCantidadMinimaProductoPromocion(300);
-        configuracion.setCostoMayor(100);
+        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(300);
+        when(configuracionMock.getCostoMayor()).thenReturn(new Double(100));
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracion);
+        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracion.getPorcentajeDescuento1()*100 +"%"));
+        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento1()*100 +"%"));
     }
 
     @Test
     public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs100YCantidadMinimaEs500(){
         //Arrange
-
-        configuracion.setCantidadMinimaProductoPromocion(500);
-        configuracion.setCostoMayor(100);
+        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(500);
+        when(configuracionMock.getCostoMayor()).thenReturn(new Double(100));
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracion);
+        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracion.getPorcentajeDescuento3()*100 +"%"));
+        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento3()*100 +"%"));
     }
 
     @Test
     public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs99000YCantidadMinimaEs300(){
         //Arrange
-        configuracion.setCantidadMinimaProductoPromocion(300);
-        configuracion.setCostoMayor(99000);
+        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(300);
+        when(configuracionMock.getCostoMayor()).thenReturn(new Double(99000));
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracion);
+        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracion.getPorcentajeDescuento2()*100 +"%"));
+        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento2()*100 +"%"));
     }
 
     @Test
     public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs9900YCantidadMinimaEs500(){
         //Arrange
-        configuracion.setCantidadMinimaProductoPromocion(500);
-        configuracion.setCostoMayor(99000);
+        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(500);
+        when(configuracionMock.getCostoMayor()).thenReturn(new Double(99000));
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracion);
+        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
         resultado = promociones.get(1).getMensaje();
         //Assert
-        Assert.assertTrue(resultado.contains(configuracion.getPorcentajeDescuento4()*100 +"%"));
+        Assert.assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento4()*100 +"%"));
     }
 }

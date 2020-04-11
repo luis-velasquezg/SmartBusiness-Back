@@ -1,0 +1,6 @@
+projectKey=SmartBusiness:SmartBusiness
+serverUrl=http://localhost:9000
+serverVersion=7.8.0.26217
+dashboardUrl=http://localhost:9000/dashboard?id=SmartBusiness%3ASmartBusiness
+ceTaskId=AXFmh_DfvJ-h5BobVpC9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXFmh_DfvJ-h5BobVpC9
