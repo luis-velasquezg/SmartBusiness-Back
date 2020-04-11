@@ -1,9 +1,30 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.myire:quill:2.3.1"
+    }
+}
 plugins {
     id 'java'
     id 'war'
     id 'org.springframework.boot' version '2.2.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id "org.sonarqube" version "2.7"
+    id "jacoco"
+    id "org.myire.quill.cobertura" version "2.3.1"
+
+}
+
+sonarqube{
+    properties{
+        property "sonar.projectKey", "org.sonarqube.JacocoCodeCoverage"
+        property "sonar.jacoco.reportPatch", "${project.buildDir}/jacoco/test.exec"
+    }
+
 }
 
 group 'SmartBusiness'
@@ -13,6 +34,7 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 
@@ -23,8 +45,40 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testCompile 'org.mockito:mockito-core:2.7.22'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.mockito:mockito-core:2.7.16'
+
 }
 
 test {
     useJUnitPlatform()
 }
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
+apply plugin: 'jacoco'
+apply plugin: "org.myire.quill.cobertura"
+
+ext {
+    jacocoVersion = '0.7.5.201505241946'
+    guavaVersion = '19.0'
+    jadiraVersion = '4.0.0.GA'
+    swaggerVersion = '2.3.0'
+}
+
+
+test.finalizedBy jacocoTestReport

@@ -28,62 +28,7 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/App.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/controller/PromocionController.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/DAO/ProductoDao.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Alerta.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Categoria.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Configuracion.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/DetalleVentas.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Producto.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Promocion.java">
-          <value>
-            <set />
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Ventas.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/service/PromocionService.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/service/PromocionServiceImpl.java">
           <value>
             <set />
           </value>
