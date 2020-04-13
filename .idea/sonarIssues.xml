@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="D:/Clases 2019-1/Proyecto Integrador/Proyecto/DocenteApiCarlos/docenteapi/docente.log">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="D:/Clases 2019-1/Proyecto Integrador/Proyecto/docenteapi/pom.xml">
           <value>
             <set />
@@ -28,12 +33,42 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/config/CORSFilter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/controller/PromocionController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/co/com/udea/smartbusiness/persistence/entity/Ventas.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/co/com/udea/smartbusiness/service/TestPromocionService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBusinessFront/src/app/app.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBusinessFront/src/app/app.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBusinessFront/src/app/promocion.service.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../SmartBusinessFront/src/index.html">
           <value>
             <set />
           </value>

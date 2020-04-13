@@ -18,7 +18,7 @@ public class PromocionController {
     private PromocionService promocionService;
     private Configuracion configuracion;
 
-    @GetMapping("/verpromociones/")
+    @GetMapping("/verpromociones")
     public ResponseEntity<List<Promocion>> verPromociones(){
         Date fecha = new Date();
         configuracion = new Configuracion();
