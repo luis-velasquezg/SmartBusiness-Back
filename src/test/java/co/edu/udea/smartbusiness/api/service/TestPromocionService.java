@@ -1,90 +1,175 @@
 package co.edu.udea.smartbusiness.api.service;
 
+import co.edu.udea.smartbusiness.api.DTO.PromocionDTO;
 import co.edu.udea.smartbusiness.api.model.Configuracion;
+import co.edu.udea.smartbusiness.api.model.DetalleVenta;
+import co.edu.udea.smartbusiness.api.model.Producto;
 import co.edu.udea.smartbusiness.api.model.Promocion;
+import co.edu.udea.smartbusiness.api.repository.ConfiguracionRepository;
+import co.edu.udea.smartbusiness.api.repository.DetalleVentaRepository;
+import co.edu.udea.smartbusiness.api.repository.ProductoRepository;
+import co.edu.udea.smartbusiness.api.repository.PromocionRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+//@PrepareForTest(PromocionServiceImpl.class)
+
+@RunWith(SpringRunner.class)
 public class TestPromocionService {
+
+    @TestConfiguration
+    static class PromocionServiceImplTestContextConfiguration {
+
+        @Bean
+        public PromocionService promocionService() {
+            return new PromocionServiceImpl();
+        }
+}
+
+    @Autowired
+    private PromocionService promocionService;
+
+    @MockBean
+    private ProductoRepository productoRepositoryMock;
+
+    @MockBean
+    private ConfiguracionRepository configuracionRepositoryMock;
+
+    @MockBean
+    private DetalleVentaRepository detalleVentaRepositoryMock;
+
+    @MockBean
+    private PromocionRepository promocionRepositoryMock;
+
     Date fecha = new Date();
     Configuracion configuracion;
-    String resultado = "";
-    PromocionService promocion;
-    List <Promocion> promociones;
-    Configuracion configuracionMock = mock(Configuracion.class);
-
+    Producto producto;
+    DetalleVenta detalleVenta;
+    Promocion promocion;
+    String resultado;
+    List <Configuracion> configuraciones;
+    List <Producto> productos;
+    List <DetalleVenta> detalleVentas;
+    List <PromocionDTO> promocionesDTO;
 
     @Before
     public void setUp(){
-        when(configuracionMock.getPorcentajeDescuento1()).thenReturn(0.40);
-        when(configuracionMock.getPorcentajeDescuento2()).thenReturn(0.30);
-        when(configuracionMock.getPorcentajeDescuento3()).thenReturn(0.20);
-        when(configuracionMock.getPorcentajeDescuento4()).thenReturn(0.10);
-       // promocion = new PromocionServiceImpl();
+        productos = new ArrayList<>();
+        detalleVentas= new ArrayList<>();
+        producto = new Producto();
+        detalleVenta = new DetalleVenta();
+        promocion = new Promocion();
+        configuraciones = new ArrayList<>();
+        configuracion = new Configuracion();
+        configuracion.setCostoMayor(100000);
+        configuracion.setCantidadMinimaVentas(300);
+        configuracion.setCantidadMaximaInventario(100);
+        configuraciones.add(configuracion);
+        when(configuracionRepositoryMock.findAll()).thenReturn(configuraciones);
+        when(detalleVentaRepositoryMock.findByProductoAndFechaAfter(any(Producto.class),any(Date.class))).thenReturn(detalleVentas);
+        when(productoRepositoryMock.findAllByInventarioIsGreaterThanEqual(100)).thenReturn(productos);
+
+
     }
 
     @After
     public void tearDown(){
-        resultado = "";
+        productos = null;
+        detalleVentas= null;
+        producto = null;
+        detalleVenta = null;
+        promocion = null;
+        configuraciones = null;
+        configuracion = null;
+        resultado = null;
     }
 
 
-    /*@Test
-    public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs100YCantidadMinimaEs300(){
+    @Test
+    public void cuandoCostoProductoVale101000YTiene101DeInventarioYTiene299VentasDebeRetornar40deDescuento(){
         //Arrange
-        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(300);
-        when(configuracionMock.getCostoMayor()).thenReturn(new Double(100));
+        producto.setCosto(101000);
+        producto.setInventario(101);
+        productos.add(producto);
+        detalleVenta.setCantidad(299);
+        detalleVentas.add(detalleVenta);
+
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
-        resultado = promociones.get(1).getMensaje();
+        promocionesDTO = promocionService.calcularPromocion(fecha);
+        resultado = promocionesDTO.get(0).getMensaje();
+
         //Assert
-        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento1()*100 +"%"));
+        assertTrue(resultado.contains(configuracion.getPorcentajeDescuento1() *100 +"%"));
     }
 
     @Test
-    public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs100YCantidadMinimaEs500(){
+    public void cuandoCostoProductoVale100000YTiene101DeInventarioYTiene299VentasDebeRetornar30deDescuento(){
         //Arrange
-        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(500);
-        when(configuracionMock.getCostoMayor()).thenReturn(new Double(100));
+        producto.setCosto(100000);
+        producto.setInventario(101);
+        productos.add(producto);
+        detalleVenta.setCantidad(299);
+        detalleVentas.add(detalleVenta);
+
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
-        resultado = promociones.get(1).getMensaje();
+        promocionesDTO = promocionService.calcularPromocion(fecha);
+        resultado = promocionesDTO.get(0).getMensaje();
+
         //Assert
-        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento3()*100 +"%"));
+        assertTrue(resultado.contains(configuracion.getPorcentajeDescuento2() *100 +"%"));
     }
 
     @Test
-    public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs99000YCantidadMinimaEs300(){
+    public void cuandoCostoProductoVale101000YTiene100DeInventarioYTiene299VentasDebeRetornar20deDescuento(){
         //Arrange
-        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(300);
-        when(configuracionMock.getCostoMayor()).thenReturn(new Double(99000));
+        producto.setCosto(101000);
+        producto.setInventario(100);
+        productos.add(producto);
+        detalleVenta.setCantidad(299);
+        detalleVentas.add(detalleVenta);
+
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
-        resultado = promociones.get(1).getMensaje();
+        promocionesDTO = promocionService.calcularPromocion(fecha);
+        resultado = promocionesDTO.get(0).getMensaje();
+
         //Assert
-        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento2()*100 +"%"));
+        assertTrue(resultado.contains(configuracion.getPorcentajeDescuento2() *100 +"%"));
     }
 
     @Test
-    public void testCalcularPromocionMetodoPorDefectoCuandoCostoMayorEs9900YCantidadMinimaEs500(){
+    public void cuandoCostoProductoVale100000YTiene100DeInventarioYTiene299VentasDebeRetornar20deDescuento(){
         //Arrange
-        when(configuracionMock.getCantidadMinimaProductoPromocion()).thenReturn(500);
-        when(configuracionMock.getCostoMayor()).thenReturn(new Double(99000));
+        producto.setCosto(100000);
+        producto.setInventario(100);
+        productos.add(producto);
+        detalleVenta.setCantidad(299);
+        detalleVentas.add(detalleVenta);
+
         //Act
-        promociones = promocion.calcularPromocionMetodoPorDefecto(fecha, configuracionMock);
-        resultado = promociones.get(1).getMensaje();
+        promocionesDTO = promocionService.calcularPromocion(fecha);
+        resultado = promocionesDTO.get(0).getMensaje();
+
         //Assert
-        assertTrue(resultado.contains(configuracionMock.getPorcentajeDescuento4()*100 +"%"));
-    }*/
+        assertTrue(resultado.contains(configuracion.getPorcentajeDescuento2() *100 +"%"));
+    }
 }

@@ -12,4 +12,6 @@ public interface PromocionService {
      List<PromocionDTO> calcularPromocion(Date fecha);
 
      void crearPromocion(PromocionDTO promocionDTO);
+
+    List<PromocionDTO> verPromocionesGuardas();
 }

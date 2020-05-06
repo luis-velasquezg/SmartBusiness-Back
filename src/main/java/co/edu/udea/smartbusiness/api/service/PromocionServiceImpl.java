@@ -9,6 +9,7 @@ import co.edu.udea.smartbusiness.api.repository.ConfiguracionRepository;
 import co.edu.udea.smartbusiness.api.repository.DetalleVentaRepository;
 import co.edu.udea.smartbusiness.api.repository.ProductoRepository;
 import co.edu.udea.smartbusiness.api.repository.PromocionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,25 +25,19 @@ public class PromocionServiceImpl implements PromocionService{
     private Configuracion configuracion;
     private PromocionDTO promocionDTO;
     private List <PromocionDTO> promocionesDTO;
+    @Autowired
     private ConfiguracionRepository configuracionRepository;
+    @Autowired
     private ProductoRepository productoRepository;
+    @Autowired
     private DetalleVentaRepository detalleVentaRepository;
+    @Autowired
     private PromocionRepository promocionRepository;
 
 
-    public PromocionServiceImpl(ConfiguracionRepository configuracionRepository,
-                                ProductoRepository productoRepository,
-                                DetalleVentaRepository detalleVentaRepository,
-                                PromocionRepository promocionRepository) {
-        this.configuracionRepository = configuracionRepository;
-        this.productoRepository = productoRepository;
-        this.detalleVentaRepository = detalleVentaRepository;
-        this.promocionRepository = promocionRepository;
-    }
 
     @Override
     public List <PromocionDTO> calcularPromocion(Date fecha) {
-
         configuracion = configuracionRepository.findAll().get(0);
         promocionesDTO = new ArrayList<>();
         promociones = new ArrayList<>();
@@ -71,7 +66,6 @@ public class PromocionServiceImpl implements PromocionService{
             }
             String mensaje = "Usted puede aplicar " + promocion.getPorcentajePromocion() * 100 +
                     "% de descuento " + "al producto " + promocion.getProducto().getNombre();
-
             promocion.setMensaje(mensaje);
             if (!verificarExistenciaPromocion(promocion)){ ;
                 promociones.add(promocion);
@@ -87,6 +81,16 @@ public class PromocionServiceImpl implements PromocionService{
     public void crearPromocion(PromocionDTO promocionDTO) {
         Promocion promocion = convertirDTOAEntity(promocionDTO);
         promocionRepository.save(promocion);
+    }
+
+    @Override
+    public List<PromocionDTO> verPromocionesGuardas() {
+        List<PromocionDTO> promocionesDTO = new ArrayList<>();
+        List<Promocion> promociones = promocionRepository.findAll();
+        for(Promocion promocion : promociones){
+            promocionesDTO.add(convertirEntityADTO(promocion));
+        }
+        return  promocionesDTO;
     }
 
     private List<Producto> consultarProductosMayorInventario(int cantidadMinima){
@@ -124,7 +128,6 @@ public class PromocionServiceImpl implements PromocionService{
 
     private Promocion convertirDTOAEntity(PromocionDTO promocionDTO){
         Promocion promocion = new  Promocion();
-        //promocion.setCodigo(promocionDTO.getCodigo());
         promocion.setFecha(new Date());
         promocion.setMensaje(promocionDTO.getMensaje());
         promocion.setPorcentajePromocion(promocionDTO.getPorcentajePromocion());
