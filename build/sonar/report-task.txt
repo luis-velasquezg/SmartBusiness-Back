@@ -1,6 +1,0 @@
-projectKey=org.sonarqube.JacocoCodeCoverage
-serverUrl=http://localhost:9000
-serverVersion=7.8.0.26217
-dashboardUrl=http://localhost:9000/dashboard?id=org.sonarqube.JacocoCodeCoverage
-ceTaskId=AXFnRWdJRZhnMopx5VY3
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXFnRWdJRZhnMopx5VY3

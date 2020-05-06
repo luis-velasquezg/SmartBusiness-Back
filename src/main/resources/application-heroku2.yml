@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        ddl-auto: update
+        order_inserts: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+          lob:
+            non_contextual_creation: true
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://ec2-54-86-170-8.compute-1.amazonaws.com:5432/ddg3ebgjbg9fte
+    driver-class-name: org.postgresql.Driver
+    username: oxabgrikqimtva
+    password: 1048c3453383c93474d31cb4b4f29e391664c1eba206fbd128a45301df284194
+
+logging:
+  level:
+    root: INFO
+  file: SmartBusiness.log
