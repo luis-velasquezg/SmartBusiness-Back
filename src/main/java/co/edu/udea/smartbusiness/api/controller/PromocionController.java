@@ -35,4 +35,9 @@ public class PromocionController {
         return "Promoción aplicada correctamente";
     }
 
+    @GetMapping("/guardadas")
+    public ResponseEntity<List<PromocionDTO>> verPromocionesGuardadas(){
+        return  ResponseEntity.ok(promocionService.verPromocionesGuardas());
+    }
+
 }
