@@ -28,6 +28,7 @@ public class Test {
 
         // DesiredCapabilities.chrome();
         driver = new ChromeDriver();
+//        driver.get("http://192.168.137.2:4200/#/home");
         driver.get("http://localhost:4200/#/home");
         driver.manage().window().maximize();
     }
@@ -38,13 +39,17 @@ public class Test {
         linkPromociones.click();
     }
 
-    @Then("^se debe redirigir a la patalla promociones$")
-    public void se_debe_redirigir_a_la_patalla_promociones() throws Throwable {
-         WebElement promociones = driver.findElement(By.id("TituloPromociones"));
-         assertTrue(promociones.isDisplayed());
+    @When("^hace clic sobre promociones sugeridas$")
+    public void hace_clic_sobre_promociones_sugeridas() throws Throwable {
+        WebElement linkPromocionesSugeridas = driver.findElement(By.xpath(("/html/body/app-root/app-header/header/div/nav/ul/li[2]/nav/ul/li[1]/a")));
+        linkPromocionesSugeridas.click();
     }
 
-
+    @Then("^se debe redirigir a la patalla promociones sugeridas$")
+    public void se_debe_redirigir_a_la_patalla_promociones_sugeridas() throws Throwable {
+        WebElement promocionesSugeridas = driver.findElement(By.id("titulo-promociones-sugeridas"));
+        assertTrue(promocionesSugeridas.isDisplayed());
+    }
 
 
 }

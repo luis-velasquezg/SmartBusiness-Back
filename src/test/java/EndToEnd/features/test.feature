@@ -6,4 +6,5 @@ Feature: Pagina Promocion
   Scenario: Ingresar a la pagina de promociones desde home
     Given dado que el usaurio se encuentra en la pagina principal
     When hace clic sobre promociones
-    Then se debe redirigir a la patalla promociones
+    And hace clic sobre promociones sugeridas
+    Then se debe redirigir a la patalla promociones sugeridas
