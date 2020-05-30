@@ -35,7 +35,6 @@ public class PromocionServiceImpl implements PromocionService{
     private PromocionRepository promocionRepository;
 
 
-
     @Override
     public List <PromocionDTO> calcularPromocion(Date fecha) {
         configuracion = configuracionRepository.findAll().get(0);
