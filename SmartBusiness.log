@@ -1,0 +1,4 @@
+2020-05-12 10:03:25.791  WARN 9980 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6h38m25s92ms694µs100ns).
+2020-05-12 10:04:48.573  WARN 9980 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m25s482ms77µs900ns).
+2020-05-12 10:22:54.046  WARN 9980 --- [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@714c1b8d (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2020-05-12 10:22:59.266  WARN 9980 --- [http-nio-8080-exec-7] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7bb470fd (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
