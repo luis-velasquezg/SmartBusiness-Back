@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -war target/smartbusiness-api-1.0-SNAPSHOT.war -Dserver.port=$PORT
