@@ -20,7 +20,7 @@ spring:
     username: oxabgrikqimtva
     password: 1048c3453383c93474d31cb4b4f29e391664c1eba206fbd128a45301df284194
 
-logging:
-  level:
-    root: INFO
-  file: SmartBusiness.log
+#logging:
+#  level:
+#    root: INFO
+#  file: SmartBusiness.log

@@ -1,11 +1,12 @@
-# Server properties
+# Server properties [Comentario]
 server:
   servlet:
     context-path: /smartbusiness
   port: 8080
-# Spring properties
+
+# Spring properties [Comentario]
 spring:
-  # Dev is active by default. This value can be overwritten by java arg param 
+  # Dev is active by default. This value can be overwritten by java arg param [Comentario]
   profiles:
     active: heroku2
   application:
