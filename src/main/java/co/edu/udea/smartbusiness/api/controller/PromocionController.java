@@ -1,6 +1,7 @@
 package co.edu.udea.smartbusiness.api.controller;
 import co.edu.udea.smartbusiness.api.DTO.PromocionDTO;
 import co.edu.udea.smartbusiness.api.model.Configuracion;
+import co.edu.udea.smartbusiness.api.repository.FakeDB;
 import co.edu.udea.smartbusiness.api.service.PromocionService;
 import co.edu.udea.smartbusiness.api.service.PromocionServiceImpl;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,10 @@ public class PromocionController {
 
     @GetMapping()
     public ResponseEntity<List<PromocionDTO>> verPromociones(){
-        Date fecha = new Date();
-        return  ResponseEntity.ok(promocionService.calcularPromocion(fecha));
+//        Date fecha = new Date();
+//        return  ResponseEntity.ok(promocionService.calcularPromocion(fecha));
+        FakeDB fakeDB = new FakeDB();
+        return  ResponseEntity.ok(fakeDB.getPromociones());
     }
 
     @PostMapping()
